@@ -14,10 +14,13 @@ public class chatController {
         return chatMessage;
     }
 
+    @SuppressWarnings("null")
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")
     public ChatMessage addUser(ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        ChatMessage.setCount(1);
+        chatMessage.setCountExp();
         return chatMessage;
     }
 }
